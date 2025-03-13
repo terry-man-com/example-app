@@ -1,7 +1,16 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
+
+// テスト用
+Route::get('/test', [TestController::class, 'test'])
+->name('test');
+
+// 新規投稿用ルーティング
+Route::get('post/create', [PostController::class, 'create']);
 
 Route::get('/', function () {
     return view('welcome');
