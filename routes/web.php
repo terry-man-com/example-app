@@ -9,8 +9,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/test', [TestController::class, 'test'])
 ->name('test');
 
+// Post
+
+// 記事一覧用ルーティング
+Route::get('post', [PostController::class, 'index']);
+
 // 新規投稿用ルーティング
 Route::get('post/create', [PostController::class, 'create']);
+
+// 投稿データ保存用
+Route::post('post', [PostController::class, 'store'])
+->name('post.store');
 
 Route::get('/', function () {
     return view('welcome');
