@@ -5,18 +5,6 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
-// テスト用
-Route::get('/test', [TestController::class, 'test'])
-->name('test');
-
-// Post
-    Route::get('post', [PostController::class, 'index']);     // 記事一覧用ルーティング
-    
-    Route::get('post/create', [PostController::class, 'create']); // 新規投稿用ルーティング
-
-// 投稿データ保存用
-Route::post('post', [PostController::class, 'store'])
-->name('post.store');
 
 Route::get('/', function () {
     return view('welcome');
