@@ -25,14 +25,19 @@
                     <label for="body" class="font-semibold mt-4">本文</label>
                     <x-input-error :messages="$errors->get('body')" class="mt-2" />
                     <textarea id="body" name="body" class="w-auto py-2
-                    border border-grey-300 rounded-md" cols="30" rows="5">
-                    {{ old('body', $post->body) }}
+                    border border-grey-300 rounded-md" cols="30" rows="5">{{ old('body', $post->body) }}
                     </textarea>
                 </div>
-
-                <x-primary-button class="mt-4">
-                    送信する
-                </x-primary-button>
+                <div class="flex">
+                    <x-primary-button class="mt-4">
+                        更新する
+                    </x-primary-button>
+                    <x-primary-button class="bg-green-800 mt-4 ml-2">
+                        <a href="{{route('post.index')}}">
+                            戻る
+                        </a>
+                    </x-primary-button>
+                </div>
             </div>
         </form>
     </div>

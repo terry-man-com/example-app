@@ -41,7 +41,11 @@
                     </p>
                 </div>
             </div>
-
         </div>
+            <x-primary-button class="bg-green-800 mt-4 ml-2">
+                <a href="{{route('post.index')}}">
+                    戻る
+                </a>
+            </x-primary-button>
     </div>
 </x-app-layout>
