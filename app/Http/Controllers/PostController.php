@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminates\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -12,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(10);
+        $posts = Post::paginate(10); // 10件だけ表示
         return view('post.index', compact('posts'));
     }
 
@@ -80,5 +81,29 @@ class PostController extends Controller
         $post->delete();
         $request->session()->flash('message', '削除しました。');
         return redirect()->route('post.index');
+    }
+
+    // キーワード検索
+    public function search(Request $request) {
+
+        session()->forget('alertMessage');
+        if(empty($request->input('keyword'))) {
+            session()->flash('formEmptyMessage', 'キーワードを入力してください');
+            return redirect()->route('post.index');
+        }
+        $keyword = $request->input('keyword');
+        $query = Post::query(); //全件取得してクエリ化
+        if(!empty($keyword)) {
+            $query->where('title', 'LIKE', '%' . $keyword . '%');
+            $query->orWhere('body', 'LIKE', '%' . $keyword . '%');
+        }
+
+        $posts = $query->paginate(10);
+
+        if ($posts->isEmpty()) {
+            session()->flash('alertMessage', '記事がありません');
+        }
+
+        return view('post.search', compact('posts', 'keyword'));
     }
 }

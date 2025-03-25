@@ -5,7 +5,12 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
+// キーワード検索用
+Route::get('/post/search', [PostController::class, 'search'])
+    ->name('post.search');
+
 Route::resource('post', PostController::class);
+
 
 Route::get('/', function () {
     return view('welcome');

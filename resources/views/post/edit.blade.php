@@ -32,8 +32,8 @@
                     <x-primary-button class="mt-4">
                         更新する
                     </x-primary-button>
-                    <x-primary-button class="bg-green-800 mt-4 ml-2">
-                        <a href="{{route('post.index')}}">
+                    <x-primary-button type="button" class="bg-green-800 mt-4 ml-2">
+                        <a href="{{route('post.show', $post)}}">
                             戻る
                         </a>
                     </x-primary-button>
