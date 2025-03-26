@@ -5,7 +5,7 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
-// キーワード検索用
+// キーワード検索用 (アレンジ用)
 Route::get('/post/search', [PostController::class, 'search'])
     ->name('post.search');
 

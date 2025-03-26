@@ -83,7 +83,7 @@ class PostController extends Controller
         return redirect()->route('post.index');
     }
 
-    // キーワード検索
+    // キーワード検索 (アレンジ)
     public function search(Request $request) {
 
         session()->forget('alertMessage');
