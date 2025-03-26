@@ -24,9 +24,7 @@
                  <div class="w-full flex flex-col">
                     <label for="body" class="font-semibold mt-4">本文</label>
                     <x-input-error :messages="$errors->get('body')" class="mt-2" />
-                    <textarea id="body" name="body" class="w-auto py-2
-                    border border-grey-300 rounded-md" cols="30" rows="5">{{ old('body', $post->body) }}
-                    </textarea>
+                    <textarea id="body" name="body" class="w-auto py-2border border-grey-300 rounded-md" cols="30" rows="5">{{ old('body', $post->body) }}</textarea>
                 </div>
                 <div class="flex">
                     <x-primary-button class="mt-4">
