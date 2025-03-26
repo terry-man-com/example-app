@@ -14,6 +14,7 @@
     </x-slot>
 
     <div class="mx-auto px-6 mt-5">
+        {{-- キーワード空欄時のメッセージ --}}
         @if(session('formEmptyMessage'))
             <div class="text-red-600 font-bold">
                 {{ session('formEmptyMessage') }}
