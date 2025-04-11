@@ -70,7 +70,7 @@ class PostController extends Controller
 
         $post->update($validated);
         $request->session()->flash('message','更新しました');
-        return redirect()->route('post.show', compact('post'));
+        return redirect()->route('post.mypage.show', compact('post'));
     }
 
     /**
@@ -80,10 +80,10 @@ class PostController extends Controller
     {
         $post->delete();
         $request->session()->flash('message', '削除しました。');
-        return redirect()->route('post.index');
+        return redirect()->route('post.mypage');
     }
 
-    // キーワード検索 (アレンジ)
+    // キーワード検索
     public function search(Request $request) {
 
         session()->forget('alertMessage');
@@ -105,5 +105,21 @@ class PostController extends Controller
         }
 
         return view('post.search', compact('posts', 'keyword'));
+    }
+    // マイページ用
+    // マイページ閲覧
+    public function mypage()
+    {
+        $posts = Post::where('user_id', auth()->id())->paginate(10);
+        return view('post.mypage', compact('posts'));
+    }
+
+    // マイページの個別表示用
+    public function mypageShow(Post $post)
+    {
+        if($post->user_id !== auth()->id()) {
+            abort(403, 'この投稿にはアクセスできません。');
+        }
+        return view('post.mypageShow', compact('post'));
     }
 }
