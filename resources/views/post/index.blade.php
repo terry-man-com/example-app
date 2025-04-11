@@ -14,12 +14,7 @@
     </x-slot>
 
     <div class="mx-auto px-6 mt-5">
-        {{-- キーワード空欄時のメッセージ --}}
-        @if(session('formEmptyMessage'))
-            <div class="text-red-600 font-bold">
-                {{ session('formEmptyMessage') }}
-            </div>
-        @endif
+        <x-input-error :messages="$errors->get('keyword')" class="mt-2" />
         <x-message :message="session('message')" />
         @foreach($posts as $post)
         <div class="mt-4 p-8 bg-white w-full rounded-2xl">

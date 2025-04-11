@@ -87,10 +87,12 @@ class PostController extends Controller
     public function search(Request $request) {
 
         session()->forget('alertMessage');
-        if(empty($request->input('keyword'))) {
-            session()->flash('formEmptyMessage', 'キーワードを入力してください');
-            return redirect()->route('post.index');
-        }
+    $validated = $request->validate([
+        'keyword' => 'required|string|max:50',
+    ], [
+        'keyword.required' => 'キーワードを入力してください',
+        'keyword.max' => 'キーワードは50文字以内で入力してください',
+    ]);
         $keyword = $request->input('keyword');
         $query = Post::query(); //全件取得してクエリ化
         if(!empty($keyword)) {
