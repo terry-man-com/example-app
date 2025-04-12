@@ -14,7 +14,14 @@
     </x-slot>
 
     <div class="mx-auto px-6 mt-5">
-        <x-input-error :messages="$errors->get('keyword')" class="mt-2" />
+        {{-- バリデーションエラー時のメッセージ --}}
+        @if ($errors->any())
+            <div class="text-red-600">
+                @foreach ($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
+            </div>
+        @endif
         <x-message :message="session('message')" />
         @foreach($posts as $post)
         <div class="mt-4 p-8 bg-white w-full rounded-2xl">

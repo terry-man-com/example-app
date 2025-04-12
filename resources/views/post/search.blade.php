@@ -14,7 +14,11 @@
     </x-slot>
 
     <div class="mx-auto px-6">
-        <x-alert-message :alertMessage="session('alertMessage')" />
+        @if (session('alertMessage'))
+            <div class="text-red-600">
+                {{ session('alertMessage') }}
+            </div>
+        @endif
         @foreach($posts as $post)
         <div class="mt-4 p-8 bg-white w-full rounded-2xl">
             <h1 class="p-4 text-lg font-semibold">

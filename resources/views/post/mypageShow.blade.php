@@ -4,7 +4,7 @@
             個別投稿
         </h2>
     </x-slot>
-
+    {{-- 自分が投稿した記事の編集・削除 --}}
     <div class="max-w-7xl mx-auto px-6">
         @if(session('message'))
             <div class="mt-8 text-red-600 font-bold">

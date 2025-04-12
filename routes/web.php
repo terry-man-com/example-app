@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/post/search', [PostController::class, 'search'])
     ->name('post.search');
 
-// マイページ表示用
+// マイページ表示用　　（新規追加）
 Route::get('/post/mypage', [PostController::class, 'mypage'])
     ->name('post.mypage');
 
-// マイページの編集・削除
+// マイページの編集・削除　（新規追加）
 Route::get('/post/mypage/show/{post}', [PostController::class, 'mypageShow'])
     ->name('post.mypage.show');
 

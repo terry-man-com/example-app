@@ -82,34 +82,44 @@ class PostController extends Controller
         $request->session()->flash('message', '削除しました。');
         return redirect()->route('post.mypage');
     }
-
-    // キーワード検索
-    public function search(Request $request) {
-
-        session()->forget('alertMessage');
-    $validated = $request->validate([
+    // 部分検索機能
+    // 入力バリデーションを追加
+    public function search(Request $request)
+{
+    // バリデーションチェック
+    $validator = \Validator::make($request->all(), [
         'keyword' => 'required|string|max:50',
-    ], [
-        'keyword.required' => 'キーワードを入力してください',
-        'keyword.max' => 'キーワードは50文字以内で入力してください',
+    ],[
+        'keyword.required' => '検索ワードを入力してください。',
+        'keyword.max' => '検索ワードは50文字以内で入力してください。',
+        'keyword.string' => '検索ワードには文字列を入力してください。',
     ]);
-        $keyword = $request->input('keyword');
-        $query = Post::query(); //全件取得してクエリ化
-        if(!empty($keyword)) {
-            $query->where('title', 'LIKE', '%' . $keyword . '%');
-            $query->orWhere('body', 'LIKE', '%' . $keyword . '%');
-        }
 
-        $posts = $query->paginate(10);
-
-        if ($posts->isEmpty()) {
-            session()->flash('alertMessage', '記事がありません');
-        }
-
-        return view('post.search', compact('posts', 'keyword'));
+    if ($validator->fails()) {
+        // バリデーション失敗時 → index に戻す
+        return redirect()
+            ->route('post.index')
+            ->withErrors($validator)
+            ->withInput();
     }
-    // マイページ用
-    // マイページ閲覧
+
+    // バリデーション通過後 → 検索処理
+    $keyword = $request->input('keyword');
+
+    $query = Post::query();
+    $query->where('title', 'like', "%{$keyword}%")
+          ->orWhere('body', 'like', "%{$keyword}%");
+
+    $posts = $query->paginate(10);
+
+    if ($posts->isEmpty()) {
+        session()->flash('alertMessage', '該当する記事は見つかりませんでした。');
+    }
+
+    return view('post.search', compact('posts', 'keyword'));
+}
+    // マイページ用　 今回追加
+    // マイページ閲覧　
     public function mypage()
     {
         $posts = Post::where('user_id', auth()->id())->paginate(10);

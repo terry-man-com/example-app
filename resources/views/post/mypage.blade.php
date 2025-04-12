@@ -6,7 +6,7 @@
             </h2>
         </div>
     </x-slot>
-
+    {{-- マイページ（自分が投稿した記事のみ表示） --}}
     <div class="mx-auto px-6 mt-5">
         <x-message :message="session('message')" />
         @foreach($posts as $post)
